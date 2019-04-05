@@ -1,5 +1,5 @@
 pool:
-  name: Hosted Ubuntu 1604
+  vmImage: 'Ubuntu 16.04'
 steps:
 - script: docker login -u "$DOCKER_ID" -p "$DOCKER_PASSWORD"
   displayName: Dockerlogin
