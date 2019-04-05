@@ -1,26 +1,25 @@
 pool:
   name: Hosted Ubuntu 1604
 steps:
-- script: docker build -t $(dockerId)/react-test -f ./client/Dockerfile.dev ./client
+- script: docker build -t srikantsarwa/react-test -f ./client/Dockerfile.dev ./client
   displayName: BuildTestImage
   
-- script:  docker run $(dockerId)/react-test npm test -- --coverage
+- script:  docker run srikantsarwa/react-test npm test -- --coverage
   displayName: TestImage
 
 - script: |
-    docker build -t $(dockerId)/multi-client ./client
-    docker build -t $(dockerId)/multi-nginx ./nginx
-    docker build -t $(dockerId)/multi-server ./server
-    docker build -t $(dockerId)/multi-worker ./worker
+    docker build -t srikantsarwa/multi-client ./client
+    docker build -t srikantsarwa/multi-nginx ./nginx
+    docker build -t srikantsarwa/multi-server ./server
+    docker build -t srikantsarwa/multi-worker ./worker
     # Log in to the docker CLI
-    docker login -u $(dockerId) -p $(pswd)
+    docker login -u srikantsarwa -p $(pswd)
     # Take those images and push them to docker hub
-    docker push $(dockerId)/multi-client
-    docker push $(dockerId)/multi-nginx
-    docker push $(dockerId)/multi-server
-    docker push $(dockerId)/multi-worker
+    docker push srikantsarwa/multi-client
+    docker push srikantsarwa/multi-nginx
+    docker push srikantsarwa/multi-server
+    docker push srikantsarwa/multi-worker
     env:
-      dockerid: $(dockerUserId)
       pswd: $(dockerPassword)
   displayName: BuildProdImages
     
