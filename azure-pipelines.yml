@@ -1,22 +1,22 @@
 pool:
   vmImage: 'Ubuntu 16.04'
 steps:
-- script: docker build -t "$DOCKER_ID"/react-test -f ./client/Dockerfile.dev ./client
+- script: docker build -t $(dockerId)/react-test -f ./client/Dockerfile.dev ./client
   displayName: BuildTestImage
   
-- script:  docker run "$DOCKER_ID"/react-test npm test -- --coverage
+- script:  docker run $(dockerId)/react-test npm test -- --coverage
   displayName: TestImage
 
 - script: |
-    docker build -t "$DOCKER_ID"/multi-client ./client
-    docker build -t "$DOCKER_ID"/multi-nginx ./nginx
-    docker build -t "$DOCKER_ID"/multi-server ./server
-    docker build -t "$DOCKER_ID"/multi-worker ./worker
+    docker build -t $(dockerId)/multi-client ./client
+    docker build -t $(dockerId)/multi-nginx ./nginx
+    docker build -t $(dockerId)/multi-server ./server
+    docker build -t /multi-worker ./worker
     # Log in to the docker CLI
     docker login -u $(dockerId) -p $(dockerPassword)
     # Take those images and push them to docker hub
-    docker push "$DOCKER_ID"/multi-client
-    docker push "$DOCKER_ID"/multi-nginx
-    docker push "$DOCKER_ID"/multi-server
-    docker push "$DOCKER_ID"/multi-worker
+    docker push $(dockerId)/multi-client
+    docker push $(dockerId)/multi-nginx
+    docker push $(dockerId)/multi-server
+    docker push $(dockerId)/multi-worker
   displayName: BuildProdImages
