@@ -1,0 +1,31 @@
+version: '3.3'
+services:
+  postgres:
+    image: postgres:latest
+  redis:
+    image: redis:latest
+  nginx:
+    restart: always
+    image: srikantsarwa/multi-nginx:latest
+    ports:
+      - '80:80'
+  api:
+    depends_on:
+      - postgres
+      - redis
+    image: srikantsarwa/multi-server:latest
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      PGUSER: postgres
+      PGHOST: postgres
+      PGDATABASE: postgres
+      PGPASSWORD: postgres_password
+      PGPORT: 5432
+  client:
+    image: srikantsarwa/multi-client:latest
+  worker:
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    image: srikantsarwa/multi-worker:latest
