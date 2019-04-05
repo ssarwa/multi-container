@@ -13,13 +13,11 @@ steps:
     docker build -t srikantsarwa/multi-server ./server
     docker build -t srikantsarwa/multi-worker ./worker
     # Log in to the docker CLI
-    docker login -u srikantsarwa -p $(pswd)
+    docker login -u srikantsarwa -p $env:dockerPassword
     # Take those images and push them to docker hub
     docker push srikantsarwa/multi-client
     docker push srikantsarwa/multi-nginx
     docker push srikantsarwa/multi-server
     docker push srikantsarwa/multi-worker
-    env:
-      pswd: $(dockerPassword)
   displayName: BuildProdImages
     
