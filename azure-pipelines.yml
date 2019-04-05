@@ -1,13 +1,6 @@
 pool:
   name: Hosted Ubuntu 1604
 steps:
-- script: |
-    #docker build -t "$DOCKER_ID"/multi-client ./client
-    # Log in to the docker CLI
-    docker login -u "$DOCKER_ID" -p "$DOCKER_PASSWORD"
-    # Take those images and push them to docker hub
-    #docker push "$DOCKER_ID"/multi-client
-  #env:
-    #pswd: "$DOCKER_PASSWORD"
-  displayName: BuildProdImages
+- script: docker login -u "$DOCKER_ID" -p "$DOCKER_PASSWORD"
+  displayName: Dockerlogin
     
