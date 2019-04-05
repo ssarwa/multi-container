@@ -11,7 +11,7 @@ steps:
     docker build -t $(dockerId)/multi-client ./client
     docker build -t $(dockerId)/multi-nginx ./nginx
     docker build -t $(dockerId)/multi-server ./server
-    docker build -t /multi-worker ./worker
+    docker build -t $(dockerId)/multi-worker ./worker
     # Log in to the docker CLI
     docker login -u $(dockerId) -p $(dockerPassword)
     # Take those images and push them to docker hub
